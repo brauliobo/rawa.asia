@@ -6,7 +6,7 @@ require_relative 'exts/peach'
 require_relative 'exts/sym_mash'
 
 PREFIX_URL = 'https://web.archive.org/web/20101219015923/'
-INDEX_URL  = 'http://rawa.asia/mp3/'
+INDEX_URL  = "#{PREFIX_URL}http://rawa.asia/mp3/"
 TARGET     = 'mp3'
 
 Dir.mkdir TARGET rescue nil
@@ -31,10 +31,10 @@ def index_links page, ppath = ''
 end
 
 def download url
-  puts url
   uri  = URI.parse url
   path = CGI.unescape(uri.path)[1..-1]
   return if File.exists? path
+  puts url
 
   dir  = CGI.unescape uri.path.split('/')[0..-2].join('/')[1..-1]
   FileUtils.mkdir_p dir
